@@ -1,9 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tp_primer_cuatrimestre/entities/User.dart';
 import 'package:tp_primer_cuatrimestre/presentations/home_screen.dart';
+import 'package:tp_primer_cuatrimestre/providers/user_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String name = 'login';
@@ -17,21 +18,18 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginView extends StatelessWidget {
+class _LoginView extends ConsumerWidget {
   TextEditingController userController = TextEditingController();
   TextEditingController pswdController = TextEditingController();
-
-  List<User> userList = [
-    User(name: 'julivino', password: 'holaa'),
-    User(name: 'pirulo123', password: '123456789'),
-    User(name: 'fulano456', password: 'qwertyuiop'),
-  ];
 
   int indiceUser = 0;
 
   _LoginView();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+
+    List userList = ref.watch(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -69,7 +67,7 @@ class _LoginView extends StatelessWidget {
                     SnackBar emptyFields = SnackBar(
                       content: const Text('Complete todos los campos.',
                           style: TextStyle(color: Colors.black)),
-                      backgroundColor: Color.fromARGB(181, 24, 241, 107),
+                      backgroundColor: const Color.fromARGB(181, 24, 241, 107),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

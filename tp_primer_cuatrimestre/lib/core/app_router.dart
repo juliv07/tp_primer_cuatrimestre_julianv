@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:tp_primer_cuatrimestre/presentations/album_screen.dart';
+import 'package:tp_primer_cuatrimestre/presentations/edit_album_screen.dart';
 import 'package:tp_primer_cuatrimestre/presentations/home_screen.dart';
 import 'package:tp_primer_cuatrimestre/presentations/login_screen.dart';
 
@@ -18,5 +19,10 @@ final appRouter = GoRouter(routes: [
   GoRoute(
     name: AlbumScreen.name,
     path: '/album', 
-    builder: (context, state) => AlbumScreen(albumIndex: state.extra as String)),
+    builder: (context, state) => AlbumScreen()),
+
+  GoRoute(
+    name: EditAlbumScreen.name,
+    path: '/editAlbum', 
+    builder: (context, state) => AlbumScreen()),
 ]);
