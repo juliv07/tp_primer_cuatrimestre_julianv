@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tp_primer_cuatrimestre/presentations/album_screen.dart';
+import 'package:tp_primer_cuatrimestre/entities/Album.dart';
 import 'package:tp_primer_cuatrimestre/providers/album_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   static const String name = 'home';
-  final String userName;
-  HomeScreen({super.key, this.userName = ''});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
 
-    List albumList = ref.watch(albumProvider);
+    List<Album> albumList = ref.watch(albumProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Welcome $userName',
-          style: const TextStyle(color: Color.fromARGB(255, 228, 118, 0)),
+        title: const Text(
+          'Welcome',
+          style: TextStyle(color: Color.fromARGB(255, 228, 118, 0)),
         ),
       ),
       body: Expanded(
@@ -28,12 +27,13 @@ class HomeScreen extends ConsumerWidget {
             return Card(
               color: const Color.fromARGB(255, 194, 245, 255),
               child: ListTile(
-                title: Text(albumList[index].name),
+                title: Text(albumList[index].albumName),
                 subtitle: Text(albumList[index].artist),
                 leading:Image.network(albumList[index].imgURL),
                 onTap: (){
                   ref.read(selectedAlbumIndexProvider.notifier).state = index;
-                  context.pushNamed(AlbumScreen.name,);
+                  ref.read(selectedAlbumProvider.notifier).state = albumList[index].albumName;
+                  context.push('/album',);
                 },
               ),
             );
@@ -44,8 +44,9 @@ class HomeScreen extends ConsumerWidget {
         onPressed: (){
           ref.read(actionAddProvider.notifier).state = true;
           ref.read(selectedAlbumProvider.notifier).state = '';
-
-          context.push('/albumScreen');
+          ref.read(selectedAlbumIndexProvider.notifier).state = albumList.length-1;
+          
+          context.push('/editAlbum');
         },
         child: const Text('+'),
       ),

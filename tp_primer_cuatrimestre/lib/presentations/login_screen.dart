@@ -1,35 +1,22 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tp_primer_cuatrimestre/entities/User.dart';
 import 'package:tp_primer_cuatrimestre/presentations/home_screen.dart';
 import 'package:tp_primer_cuatrimestre/providers/user_provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   static const String name = 'login';
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _LoginView(),
-    );
-  }
-}
-
-class _LoginView extends ConsumerWidget {
-  TextEditingController userController = TextEditingController();
-  TextEditingController pswdController = TextEditingController();
-
-  int indiceUser = 0;
-
-  _LoginView();
   @override
   Widget build(BuildContext context, ref) {
 
-    List userList = ref.watch(userProvider);
+    TextEditingController userController = TextEditingController();
+    TextEditingController pswdController = TextEditingController();
 
+    final List<User> userList = ref.watch(userProvider);
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -77,10 +64,13 @@ class _LoginView extends ConsumerWidget {
                     return;
                   }
                   
-                  if(userList.any((User)=>
-                  User.name==inputUser &&
-                  User.password==inputPswd)){
-                    context.pushNamed(HomeScreen.name,extra: userController.text);
+                  if(
+                    userList.any((User)=>
+                    User.name==inputUser &&
+                    User.password==inputPswd
+                    )
+                  ) {
+                    context.pushReplacementNamed(HomeScreen.name);
                   }
                   else{
                     SnackBar incorrectPswd = SnackBar(

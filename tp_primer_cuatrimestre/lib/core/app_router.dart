@@ -4,25 +4,30 @@ import 'package:tp_primer_cuatrimestre/presentations/edit_album_screen.dart';
 import 'package:tp_primer_cuatrimestre/presentations/home_screen.dart';
 import 'package:tp_primer_cuatrimestre/presentations/login_screen.dart';
 
-final appRouter = GoRouter(routes: [
+final appRouter = GoRouter(
+  initialLocation: '/home',
+  routes: [
   GoRoute(
     name: LoginScreen.name,
-    path: '/',
-    builder: (  context, state) => LoginScreen(),
+    path: '/login',
+    builder: (  context, state) => const LoginScreen(),
   ),
 
   GoRoute(
     name: HomeScreen.name,
     path: '/home', 
-    builder: (context, state) => HomeScreen(userName: state.extra as String)),
+    builder: (context, state) => HomeScreen()
+  ),
 
   GoRoute(
     name: AlbumScreen.name,
     path: '/album', 
-    builder: (context, state) => AlbumScreen()),
+    builder: (context, state) => AlbumScreen()
+  ),
 
   GoRoute(
     name: EditAlbumScreen.name,
     path: '/editAlbum', 
-    builder: (context, state) => AlbumScreen()),
+    builder: (context, state) => EditAlbumScreen()
+  ),
 ]);
