@@ -5,7 +5,7 @@ import 'package:tp_primer_cuatrimestre/presentations/home_screen.dart';
 import 'package:tp_primer_cuatrimestre/presentations/login_screen.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/login',
   routes: [
   GoRoute(
     name: LoginScreen.name,
