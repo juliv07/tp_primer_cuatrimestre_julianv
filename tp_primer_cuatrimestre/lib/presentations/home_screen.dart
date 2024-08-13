@@ -33,6 +33,11 @@ class HomeScreen extends ConsumerWidget {
                 onTap: (){
                   ref.read(selectedAlbumIndexProvider.notifier).state = index;
                   ref.read(selectedAlbumProvider.notifier).state = albumList[index].albumName;
+                  
+                  print('Index: $index');
+                  final a = albumList[index].albumName;
+                  print('name: $a');
+
                   context.push('/album',);
                 },
               ),

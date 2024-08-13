@@ -38,9 +38,23 @@ class AlbumScreen extends ConsumerWidget {
 
                 ElevatedButton(
                   onPressed:(){ 
+                    if(albumList.length>1){
                     ref.read(albumProvider.notifier).state.removeAt(selectedAlbumIndex);
-                    ref.read(selectedAlbumIndexProvider.notifier).state = albumList.length-2;
+                    ref.read(selectedAlbumIndexProvider.notifier).state = albumList.length-1;
                     context.push('/home');
+                    }
+                    else{
+                      SnackBar emptyList = SnackBar(
+                        content: const Text("You can't remove all the items of the list.",
+                          style: TextStyle(color: Colors.white)),
+                        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        duration: const Duration(seconds: 2),
+                      );
+                    ScaffoldMessenger.of(context).showSnackBar(emptyList);
+                    }             
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
